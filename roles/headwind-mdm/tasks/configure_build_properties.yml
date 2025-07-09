@@ -1,0 +1,45 @@
+- name: Copy build.properties.example to build.properties
+  copy:
+    src: "{{ build_properties_src }}"
+    dest: "{{ build_properties_dest }}"
+    remote_src: yes
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    mode: '0644'
+  notify: Restart Tomcat
+
+- name: Replace base.directory
+  replace:
+    path: "{{ build_properties_dest }}"
+    regexp: '^(base.directory=).*$'
+    replace: '\1{{ tomcat_work_dir }}'
+
+- name: Replace files.directory
+  replace:
+    path: "{{ build_properties_dest }}"
+    regexp: '^(files.directory=).*$'
+    replace: '\1{{ tomcat_work_dir }}/files'
+
+- name: Replace base.url
+  replace:
+    path: "{{ build_properties_dest }}"
+    regexp: '^(base.url=).*$'
+    replace: '\1{{ base_url }}'
+
+- name: Replace plugins.files.directory
+  replace:
+    path: "{{ build_properties_dest }}"
+    regexp: '^(plugins.files.directory=).*$'
+    replace: '\1{{ tomcat_work_dir }}/plugins'
+
+- name: Replace initialization.completion.signal.file
+  replace:
+    path: "{{ build_properties_dest }}"
+    regexp: '^(initialization.completion.signal.file=).*$'
+    replace: '\1{{ tomcat_work_dir }}/initialized.txt'
+
+- name: Replace jdbc.password
+  replace:
+    path: "{{ build_properties_dest }}"
+    regexp: '^(jdbc.password=).*$'
+    replace: '\1{{ postgres_password }}'

@@ -1,0 +1,32 @@
+hmdm_project_base: /var/opt/mdm
+hmdm_project_dir: "{{ hmdm_project_base }}/hmdm-server"
+hmdm_server_dir: "{{ hmdm_project_dir }}/server"
+tomcat_user: tomcat
+tomcat_group: tomcat
+
+# tomcat
+tomcat_port_old: 8080
+tomcat_port: 8082
+tomcat_server_xml: /etc/tomcat9/server.xml
+tomcat_webapps_dir: /var/lib/tomcat9/webapps
+tomcat_work_dir: /var/lib/tomcat9/work
+
+# build properties
+build_properties_src: "{{ hmdm_server_dir }}/build.properties.example"
+build_properties_dest: "{{ hmdm_server_dir }}/build.properties"
+
+# Urls edit in build.properties
+base_directory: "{{ tomcat_work_dir }}"
+files_directory: "{{ tomcat_work_dir }}/files"
+init_completion_file: "{{ tomcat_work_dir }}/initialized.txt"
+base_url: "your domaine name"
+
+# PostgreSQL
+postgres_user: hmdm
+postgres_password: "your_p@ssword"
+postgres_db: hmdm
+postgres_encoding: UTF8
+
+# war file
+launcher_war_src: "{{ hmdm_server_dir }}/target/launcher.war"
+launcher_war_dest: "{{ tomcat_webapps_dir }}/launcher.war"

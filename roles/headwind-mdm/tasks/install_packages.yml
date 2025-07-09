@@ -1,0 +1,14 @@
+- name: Install package
+  apt:
+    name:
+      - default-jdk
+      - tomcat9
+      - postgresql-contrib
+      - unzip
+      - wget
+      - curl
+      - aapt
+      - git
+      - maven
+    state: present
+    update_cache: yes

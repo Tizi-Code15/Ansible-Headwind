@@ -1,0 +1,36 @@
+- name: Start and enable Tomcat
+  systemd:
+    name: tomcat9
+    state: started
+    enabled: yes
+
+- name: Change Tomcat port from 8080 to 8082
+  replace:
+    path: "{{ tomcat_server_xml }}"
+    regexp: '(<Connector port="){{ tomcat_port_old }}(")'
+    replace: "\\g<1>{{ tomcat_port }}\\2"
+  notify: Restart Tomcat
+
+- name: Deploy launcher.war to Tomcat
+  copy:
+    src: "{{ launcher_war_src }}"
+    dest: "{{ launcher_war_dest }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    mode: '0644'
+  notify: Restart Tomcat
+
+- name: Copier launcher.war vers Tomcat
+  copy:
+    src: "{{ launcher_war_src }}"
+    dest: "{{ launcher_war_dest }}"
+    remote_src: yes
+
+- name: Renommer launcher.war en ROOT.war
+  command: mv {{ tomcat_webapps_dir }}/launcher.war {{ tomcat_webapps_dir }}/ROOT.war
+  notify: Restart Tomcat
+
+- name: Restart Tomcat
+  systemd:
+    name: tomcat9
+    state: restarted

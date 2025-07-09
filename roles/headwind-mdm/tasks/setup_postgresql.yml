@@ -1,0 +1,26 @@
+- name: Start and enable PostgreSQL
+  systemd:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Install PostgreSQL dependencies
+  apt:
+    name: python3-psycopg2
+    state: present
+
+- name: Create PostgreSQL user for headwind mdm
+  community.postgresql.postgresql_user:
+    name: "{{ postgres_user }}"
+    password: "{{ postgres_password }}"
+    state: present
+    login_user: postgres
+
+- name: Create PostgreSQL database
+  community.postgresql.postgresql_db:
+    name: "{{ postgres_db }}"
+    owner: "{{ postgres_user }}"
+    encoding: "{{ postgres_encoding }}"
+    state: present
+    login_user: postgres
+    

@@ -1,0 +1,44 @@
+# === Ansible ===
+*.retry
+*.log
+*.swp
+*.bak
+*.tmp
+*.tar.gz
+*.tar
+*.zip
+*.orig
+
+# Ansible vault secret files
+*.vault
+*.enc
+
+# Local inventory files (non versionnés)
+inventory
+hosts
+inventory.ini
+
+# Environment and secret config
+.env
+.env.*
+secrets.yml
+vault_pass.txt
+
+# SSH keys (si jamais présents par erreur)
+*.pem
+*.pub
+id_rsa
+id_rsa.*
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Systèmes ou éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Fichiers de sauvegarde d'éditeurs
+*~

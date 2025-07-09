@@ -1,0 +1,6 @@
+- import_tasks: install_packages.yml
+- import_tasks: setup_postgresql.yml
+- import_tasks: configure_build_properties.yml
+- import_tasks: clone_compile_project.yml
+- import_tasks: configure_tomcat.yml
+

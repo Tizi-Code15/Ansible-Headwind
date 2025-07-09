@@ -1,0 +1,12 @@
+- name: Clone headwind-mdm repository
+  git:
+    repo: https://github.com/h-mdm/hmdm-server.git
+    dest: "{{ hmdm_project_dir }}"
+    version: master
+    force: yes
+
+- name: Compile project using Maven
+  command: mvn clean package
+  args:
+    chdir: "{{ hmdm_project_dir }}"
+    creates: "{{ hmdm_project_dir }}/target"

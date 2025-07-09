@@ -1,0 +1,8 @@
+- name: Headwind deploiement
+  hosts: headwind_serveurs
+  become: yes
+
+
+  roles:
+    - headwind-mdm
+    
